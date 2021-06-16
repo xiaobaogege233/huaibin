@@ -33,10 +33,6 @@ public class PlayerHuAndClearAllActionHuActionUpdater implements MajiangPlayerHu
                 PengchuPaiZu pengChuPaiZu = new PengchuPaiZu(new Kezi(gangChuPaiZu.getGangzi().getPaiType()),
                         gangChuPaiZu.getDachuPlayerId(), dianpaoPlayer.getId());
                 dianpaoPlayer.getPengchupaiZuList().add(pengChuPaiZu);}
-//			GangchuPaiZu gangChuPaiZu = gangchupaiZuList.remove(gangchupaiZuList.size() - 1);
-//			PengchuPaiZu pengChuPaiZu = new PengchuPaiZu(new Kezi(gangChuPaiZu.getGangzi().getPaiType()),
-//					gangChuPaiZu.getDachuPlayerId(), dianpaoPlayer.getId());
-//			dianpaoPlayer.getPengchupaiZuList().add(pengChuPaiZu);
 		}
 	}
 

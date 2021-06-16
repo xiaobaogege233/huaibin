@@ -29,7 +29,7 @@ public class HuFirstBuGangActionProcessor implements MajiangPlayerGangActionProc
 			} else if (gangType.equals(GangType.kezigangshoupai)) {
 				currentPan.playerKeziGangShoupai(action.getActionPlayerId(), action.getPai());
 			} else if (gangType.equals(GangType.tiangang)) {
-				currentPan.playerKeziGangShoupai(action.getActionPlayerId(), action.getPai());
+				currentPan.playerGangSigeshoupai(action.getActionPlayerId(), action.getPai());
 			}else {
 			}
 		}

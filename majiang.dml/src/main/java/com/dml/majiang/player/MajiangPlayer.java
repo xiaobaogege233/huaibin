@@ -1358,5 +1358,11 @@ public class MajiangPlayer {
 
     }
 
-
+    /**
+     * 天杠
+     */
+    public void tryTianGangAndGenerateCandidateAction() {
+        List<MajiangPai> gangpaiList = shoupaiCalculator.findAllPaiQuantityIsFour();
+        gangpaiList.forEach((gangpai) -> addActionCandidate(new MajiangGangAction(id, null, gangpai, GangType.tiangang)));
+    }
 }

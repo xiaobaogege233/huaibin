@@ -22,9 +22,7 @@ import java.util.Map;
  *
  */
 @Data
-public class HuaibinMajiangPengGangActionStatisticsListener
-		implements  MajiangPlayerPengActionStatisticsListener,
-        MajiangPlayerGangActionStatisticsListener {
+public class HuaibinMajiangPengGangActionStatisticsListener implements  MajiangPlayerPengActionStatisticsListener, MajiangPlayerGangActionStatisticsListener {
 
 	private Map<String, MajiangPlayerAction> playerActionMap = new HashMap<>();
 
