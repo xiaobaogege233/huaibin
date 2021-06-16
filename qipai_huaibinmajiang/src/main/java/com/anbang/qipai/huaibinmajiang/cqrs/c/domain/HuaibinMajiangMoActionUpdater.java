@@ -11,6 +11,7 @@ import com.dml.majiang.player.action.guo.MajiangGuoAction;
 import com.dml.majiang.player.action.hu.MajiangHuAction;
 import com.dml.majiang.player.action.mo.MajiangMoAction;
 import com.dml.majiang.player.action.mo.MajiangPlayerMoActionUpdater;
+import com.dml.majiang.player.action.mo.QishouMopai;
 import com.dml.majiang.player.shoupai.gouxing.GouXingPanHu;
 
 import java.util.Map;
@@ -31,24 +32,34 @@ public class HuaibinMajiangMoActionUpdater implements MajiangPlayerMoActionUpdat
     @Override
     public void updateActions(MajiangMoAction moAction, Ju ju) throws Exception {
 
-        // TODO 存在天杠需要在这里判断是否为第一次摸排 第一次打牌之前的杠四个手牌即为天杠 打了第一张牌之后即为暗杠
 
-        // TODO 可能亮风也会在这里做一些处理
 
         HuaibinMajiangPanResultBuilder huaibinMajiangPanResultBuilder = (HuaibinMajiangPanResultBuilder) ju.getCurrentPanResultBuilder();
         OptionalPlay optionalPlay = huaibinMajiangPanResultBuilder.getOptionalPlay();
         Pan currentPan = ju.getCurrentPan();
         MajiangPlayer player = currentPan.findPlayerById(moAction.getActionPlayerId());
         currentPan.clearAllPlayersActionCandidates();
+
+
+
+        // TODO 可能亮风也会在这里做一些处理
+
         MajiangPai gangmoShoupai = player.getGangmoShoupai();
-
-
 
         // 有手牌或刻子可以杠这个摸来的牌
         player.tryShoupaigangmoAndGenerateCandidateAction();
         player.tryKezigangmoAndGenerateCandidateAction();
-        // 杠四个手牌 暗杠
-        player.tryGangsigeshoupaiAndGenerateCandidateAction();
+
+        // TODO 存在天杠需要在这里判断是否为第一次摸排 第一次打牌之前的杠四个手牌即为天杠 打了第一张牌之后即为暗杠
+        if (moAction.getReason().getName().equals(QishouMopai.name)){
+            // 天杠
+            player.tryTianGangAndGenerateCandidateAction();
+        }else{
+            // 杠四个手牌 暗杠
+            player.tryGangsigeshoupaiAndGenerateCandidateAction();
+        }
+        // TODO 可能亮风也会在这里做一些处理
+
         // 胡
         GouXingPanHu gouXingPanHu = ju.getGouXingPanHu();
         // 天胡

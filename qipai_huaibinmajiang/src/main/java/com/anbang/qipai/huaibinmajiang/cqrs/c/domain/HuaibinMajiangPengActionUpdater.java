@@ -18,9 +18,16 @@ import java.util.List;
 public class HuaibinMajiangPengActionUpdater implements MajiangPlayerPengActionUpdater {
 
 
+	/**
+	 * 碰动作过后
+	 * @param pengAction
+	 * @param ju
+	 * @throws Exception
+	 */
 	@Override
 	public void updateActions(MajiangPengAction pengAction, Ju ju) throws Exception {
 
+		// TODO 一碰砸到的情况可能在这里做
 
 		HuaibinMajiangPengGangActionStatisticsListener juezhangStatisticsListener = ju.getActionStatisticsListenerManager().findListener(HuaibinMajiangPengGangActionStatisticsListener.class);
 		Pan currentPan = ju.getCurrentPan();
@@ -28,7 +35,7 @@ public class HuaibinMajiangPengActionUpdater implements MajiangPlayerPengActionU
 		OptionalPlay optionalPlay = huaibinMajiangPanResultBuilder.getOptionalPlay();
 		MajiangPlayer player = currentPan.findPlayerById(pengAction.getActionPlayerId());
 
-		if (pengAction.isDisabledByHigherPriorityAction()) { // 如果碰动作被阻塞 说明别人可能有胡
+		if (pengAction.isDisabledByHigherPriorityAction()) { // 如果碰动作被阻塞 说明别人可能有胡 也有可能牌是最后一张打的牌
 			player.clearActionCandidates();// 玩家删除碰动作
 
 			if (currentPan.allPlayerHasNoActionCandidates() && !currentPan.anyPlayerHu()) {// 所有玩家行牌结束，并且没人胡
@@ -56,7 +63,7 @@ public class HuaibinMajiangPengActionUpdater implements MajiangPlayerPengActionU
             if (!player.getActionCandidates().isEmpty()){
                 player.addActionCandidate(new MajiangGuoAction(player.getId()));
             }
-			if (player.getActionCandidates().isEmpty()) {
+            if (player.getActionCandidates().isEmpty()) {
 			    player.generateDaGuipaiActions();
 			}
 		}

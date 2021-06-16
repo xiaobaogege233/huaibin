@@ -27,8 +27,7 @@ public class HuaibinMajiangGuoActionUpdater implements MajiangPlayerGuoActionUpd
 
 		Pan currentPan = ju.getCurrentPan();
 		currentPan.playerClearActionCandidates(guoAction.getActionPlayerId());
-		HuaibinMajiangPanResultBuilder huaibinMajiangPanResultBuilder = (HuaibinMajiangPanResultBuilder) ju
-				.getCurrentPanResultBuilder();
+		HuaibinMajiangPanResultBuilder huaibinMajiangPanResultBuilder = (HuaibinMajiangPanResultBuilder) ju.getCurrentPanResultBuilder();
 		OptionalPlay optionalPlay = huaibinMajiangPanResultBuilder.getOptionalPlay();
 
 		MajiangPlayer player = currentPan.findPlayerById(guoAction.getActionPlayerId());
@@ -44,20 +43,16 @@ public class HuaibinMajiangGuoActionUpdater implements MajiangPlayerGuoActionUpd
             }
 		} else if (action.getType().equals(MajiangPlayerActionType.da)) {// 过的是别人打出牌之后我可以吃碰杠胡
 			if (currentPan.allPlayerHasNoActionCandidates() && !currentPan.anyPlayerHu()) {// 如果所有玩家啥也干不了
-				HuaibinMajiangPengGangActionStatisticsListener chiPengGangRecordListener = ju
-						.getActionStatisticsListenerManager()
-						.findListener(HuaibinMajiangPengGangActionStatisticsListener.class);
+				HuaibinMajiangPengGangActionStatisticsListener chiPengGangRecordListener = ju.getActionStatisticsListenerManager().findListener(HuaibinMajiangPengGangActionStatisticsListener.class);
 				MajiangPlayerAction finallyDoneAction = chiPengGangRecordListener.findPlayerFinallyDoneAction();
 				if (finallyDoneAction != null) {// 有其他吃碰杠动作，先执行吃碰杠
 					MajiangPlayer actionPlayer = currentPan.findPlayerById(finallyDoneAction.getActionPlayerId());
 					if (finallyDoneAction instanceof MajiangPengAction) {// 如果是碰
 						MajiangPengAction doAction = (MajiangPengAction) finallyDoneAction;
-						actionPlayer.addActionCandidate(new MajiangPengAction(doAction.getActionPlayerId(),
-								doAction.getDachupaiPlayerId(), doAction.getPai()));
+						actionPlayer.addActionCandidate(new MajiangPengAction(doAction.getActionPlayerId(), doAction.getDachupaiPlayerId(), doAction.getPai()));
 					} else if (finallyDoneAction instanceof MajiangGangAction) {// 如果是杠
 						MajiangGangAction doAction = (MajiangGangAction) finallyDoneAction;
-						actionPlayer.addActionCandidate(new MajiangGangAction(doAction.getActionPlayerId(),
-								doAction.getDachupaiPlayerId(), doAction.getPai(), doAction.getGangType()));
+						actionPlayer.addActionCandidate(new MajiangGangAction(doAction.getActionPlayerId(), doAction.getDachupaiPlayerId(), doAction.getPai(), doAction.getGangType()));
 					}
 				} else {
 					// 打牌那家的下家摸牌
@@ -87,9 +82,9 @@ public class HuaibinMajiangGuoActionUpdater implements MajiangPlayerGuoActionUpd
 		} else if (action.getType().equals(MajiangPlayerActionType.peng)) {// 过的是我碰了之后的杠
 			if (currentPan.allPlayerHasNoActionCandidates() && !currentPan.anyPlayerHu()) {// 如果所有玩家啥也干不了
 				// 那要我打牌
-                if (player.getActionCandidates().isEmpty()) {
-                    player.generateDaGuipaiActions();
-                }
+				if (player.getActionCandidates().isEmpty()) {
+					player.generateDaGuipaiActions();
+				}
 			}
 		}
 	}
